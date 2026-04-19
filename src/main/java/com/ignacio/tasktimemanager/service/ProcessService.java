@@ -10,64 +10,46 @@ import com.ignacio.tasktimemanager.config.AppConfig;
 import com.ignacio.tasktimemanager.utils.Tools;
 
 public class ProcessService {
-
-    private Map<String, List<Integer>> appsMap;
-
-    public ProcessService() {
-        this.appsMap = new HashMap<>();
-    }
-
     
     public Map<String, List<Integer>> getProcesses() {
 
-        SystemInfo si = new SystemInfo();
-        OperatingSystem os = si.getOperatingSystem();
+    SystemInfo si = new SystemInfo();
+    OperatingSystem os = si.getOperatingSystem();
 
-        appsMap.clear(); // importante para refrescar datos
+    Map<String, List<Integer>> appsMap = new HashMap<>();
 
-        for (OSProcess process : os.getProcesses()) {
+    for (OSProcess process : os.getProcesses()) {
 
-            String name = Tools.normalize(process.getName());
-            int pid = process.getProcessID();
+        String name = Tools.normalize(process.getName());
+        int pid = process.getProcessID();
 
-            if (AppConfig.BLACKLIST.contains(name)) {
-                continue;
-            }
+        if (AppConfig.BLACKLIST.contains(name)) continue;
 
-            if (AppConfig.WHITELIST.contains(name)) {
-                appsMap.computeIfAbsent(name, k -> new ArrayList<>())
-                        .add(pid);
-            }
+        if (AppConfig.WHITELIST.contains(name)) {
+            appsMap
+                .computeIfAbsent(name, k -> new ArrayList<>())
+                .add(pid);
         }
+    }
 
-        return appsMap;
+    return appsMap;
     }
 
     
-    public List<String> getAppNames() {
-        return new ArrayList<>(appsMap.keySet());
-    }
+    
 
     
-    public void killApp(String name) {
+    public void killApps(List<String> names, Map<String, List<Integer>> processes) {
 
-        name = Tools.normalize(name);
+    for (String name : names) {
 
-        List<Integer> pids = appsMap.get(name);
+        String normalized = Tools.normalize(name);
+
+        List<Integer> pids = processes.get(normalized);
 
         if (pids == null || pids.isEmpty()) {
             System.out.println("No hay procesos activos para: " + name);
-            return;
-        }
-
-        System.out.println("Cerrando " + name );
-        
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            System.out.println("Interrumpido");
-            return;
+            continue;
         }
 
         for (Integer pid : pids) {
@@ -85,4 +67,5 @@ public class ProcessService {
 
         System.out.println(name + " cerrado correctamente.");
     }
+}
 }

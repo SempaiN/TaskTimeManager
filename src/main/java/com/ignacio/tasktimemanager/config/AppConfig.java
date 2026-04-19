@@ -17,7 +17,9 @@ public class AppConfig {
             "vivaldi",
             "code",
             "spotify",
-            "notion"
+            "notion",
+            "codex",
+            "RiotClientServices"
     );
 
     public static final Set<String> BLACKLIST = Set.of(
