@@ -1,29 +1,36 @@
 package com.ignacio.tasktimemanager.service;
 
 import com.ignacio.tasktimemanager.config.AppConfig;
+import com.ignacio.tasktimemanager.utils.Tools;
+
 import oshi.SystemInfo;
 import oshi.software.os.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProcessService {
-    public List<OSProcess> getProcesses() {
+    
+    public Map<String,List<Integer>> getProcesses() {
         SystemInfo si = new SystemInfo();
         OperatingSystem os = si.getOperatingSystem();
-        List<OSProcess> result = new ArrayList<>();
+        Map<String,List<Integer>> appsMap = new HashMap<>();
 
         for (OSProcess process : os.getProcesses()) {
-            String name = process.getName().toLowerCase();
-
+            String name = Tools.normalize(process.getName());
+            int pid = process.getProcessID();
             if (AppConfig.BLACKLIST.contains(name)) {
                 continue;
             }
 
             if (AppConfig.WHITELIST.contains(name)) {
-                result.add(process);
+                appsMap.computeIfAbsent(name, k -> new ArrayList<>())
+               .add(pid);
             }
         }
 
-        return result;
+        return appsMap;
     }
+
 }

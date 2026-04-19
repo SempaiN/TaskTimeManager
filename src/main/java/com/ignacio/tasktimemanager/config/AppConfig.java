@@ -1,16 +1,31 @@
 package com.ignacio.tasktimemanager.config;
 
-import java.util.List;
+
+import java.util.Set;
 
 public class AppConfig {
 
-    public static final List<String> WHITELIST = List.of(
-        "steam","discord","steam","whatsapp","factorio",
-        "chrome","opera","firefox","msedge","vivaldi"
+    public static final Set<String> WHITELIST = Set.of(
+            "steam",
+            "discord",
+            "whatsapp",
+            "factorio",
+            "chrome",
+            "opera",
+            "firefox",
+            "msedge",
+            "vivaldi",
+            "code",
+            "spotify",
+            "notion"
     );
 
-    public static final List<String> BLACKLIST = List.of(
-        "system","idle","svchost","wininit","csrss"
+    public static final Set<String> BLACKLIST = Set.of(
+            "system",
+            "idle",
+            "svchost",
+            "wininit",
+            "csrss"
     );
 }
 
