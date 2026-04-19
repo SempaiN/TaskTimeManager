@@ -7,7 +7,7 @@ Dentro de la aplicación se utiliza el comando taskkill de Windows, debido a est
 
 # Descargar el jar 
 
-El archivo ejecutable se encuentra en la carpeta target dentro del proyecto o en la sección releases del repositorio
+El archivo ejecutable se encuentra en la carpeta madre dentro del proyecto o en la sección releases del repositorio
 
 
 # Ejecutar por teminal
