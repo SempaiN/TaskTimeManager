@@ -5,12 +5,12 @@ import java.util.List;
 public class AppConfig {
 
     public static final List<String> WHITELIST = List.of(
-        "steam.exe","discord.exe","steam.exe","whatsapp.exe","factorio.exe",
-        "chrome.exe","opera.exe","firefox.exe","msedge.exe"
+        "steam","discord","steam","whatsapp","factorio",
+        "chrome","opera","firefox","msedge","vivaldi"
     );
 
     public static final List<String> BLACKLIST = List.of(
-        "system","idle","svchost.exe","wininit.exe","csrss.exe"
+        "system","idle","svchost","wininit","csrss"
     );
 }
 
