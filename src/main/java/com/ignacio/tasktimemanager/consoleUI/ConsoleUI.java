@@ -38,7 +38,7 @@ public class ConsoleUI {
                     break;
                 }
 
-                selected.add(num - 1); // pasamos a índice real
+                selected.add(num - 1); 
             }
 
             if (!selected.isEmpty()) break;
