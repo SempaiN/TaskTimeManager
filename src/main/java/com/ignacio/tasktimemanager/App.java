@@ -53,7 +53,7 @@ public class App {
 
                 int time = ConsoleUI.selectTime() * 60 * 1000;
 
-                System.out.println("Cerrando en " + (time / 1000) + " segundos...");
+                System.out.println("Cerrando en " + ((time/60)/1000 ) + " minutos...");
                 Thread.sleep(time);
 
                 service.killApps(selectedApps, apps);
